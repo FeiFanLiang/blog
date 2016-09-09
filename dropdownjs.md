@@ -101,6 +101,7 @@ $('#dropdownMenu').trigger('click.data-api')
   }
 ```
 ##### clearMenus()
+这里用到了jQuery的[$.event](http://www.cnblogs.com/ip128/p/4570394.html)
 ```javascript
   function clearMenus(e) {
    if (e && e.which === 3) return  //这个具体什么作用还未知 - -
