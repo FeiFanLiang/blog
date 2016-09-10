@@ -51,7 +51,6 @@ $('#dropdownMenu').trigger('click.data-api')
 
   // 定义dropdown插件
 // ==========================
-
   function Plugin(option) {
     return this.each(function () {
       var $this = $(this)
@@ -128,5 +127,89 @@ $('#dropdownMenu').trigger('click.data-api')
 ```
 ##### toggle()
 ```javascript
+  Dropdown.prototype.toggle = function (e) {
+    var $this = $(this)
+    //处于禁用状态,直接返回
+    if ($this.is('.disabled, :disabled')) return
+    //获取其父级元素
+    var $parent  = getParent($this)
+    var isActive = $parent.hasClass('open')
+    //关闭所有打开的下拉菜单
+    clearMenus()
 
+    if (!isActive) {
+      //支持ontouchstart属性,且不是导航栏中的下拉菜单
+      if ('ontouchstart' in document.documentElement && !$parent.closest('.navbar-nav').length) {
+        // 如果是移动端,我们使用`backdrop`,因为移动设备不支持事件委托
+        // .dropdown-backdrop {
+        //   position: fixed;
+        //   top: 0;
+        //   right: 0;
+        //   bottom: 0;
+        //   left: 0;
+        //   z-index: 990;
+        // }
+        $(document.createElement('div'))
+          .addClass('dropdown-backdrop')
+          .insertAfter($(this))
+          .on('click', clearMenus)
+      }
+      //对应事件的目标DOM元素
+      var relatedTarget = { relatedTarget: this }
+      //打开前,触发show事件(暴露在外的方法:show.bs.dropdown)
+      $parent.trigger(e = $.Event('show.bs.dropdown', relatedTarget))
+
+      //isDefaultPrevented()用于判断是否已经调用过event.preventDefault()函数。
+      if (e.isDefaultPrevented()) return
+
+      $this
+        .trigger('focus') //触发了button的focus事件
+        .attr('aria-expanded', 'true')
+
+      $parent
+        .toggleClass('open')  //切换open class类
+      //打开前,触发shown事件(暴露在外的方法:shown.bs.dropdown)
+        .trigger($.Event('shown.bs.dropdown', relatedTarget))
+    }
+    //阻止默认事件
+    return false
+  }
+```
+##### keydown()
+```javascript
+  Dropdown.prototype.keydown = function (e) {
+    //38:↑ 40:↓ 27:ESC 32: 空格键
+    if (!/(38|40|27|32)/.test(e.which) || /input|textarea/i.test(e.target.tagName)) return
+
+    var $this = $(this)
+
+    e.preventDefault() //阻止默认事件
+    e.stopPropagation() //阻止冒泡
+
+    if ($this.is('.disabled, :disabled')) return
+
+    var $parent  = getParent($this)
+    var isActive = $parent.hasClass('open')
+    // 未打开且不是ESC键 或者 已打开且是ESC键
+    if (!isActive && e.which != 27 || isActive && e.which == 27) {
+      //如果是ESC键,触发focus事件 (我觉得应该不用触发focus事件)
+      if (e.which == 27) $parent.find(toggle).trigger('focus')
+      return $this.trigger('click')
+    }
+
+    var desc = ' li:not(.disabled):visible a'
+    //下拉菜单中可见且不是禁用状态下`a`标签
+    var $items = $parent.find('.dropdown-menu' + desc)
+
+    if (!$items.length) return
+    //当前元素相对于`a`标签的位置  
+    var index = $items.index(e.target)
+
+    if (e.which == 38 && index > 0)                 index--         // up
+    if (e.which == 40 && index < $items.length - 1) index++         // down
+    //若index为负时,将index置为0(一般不会出现,针对特殊情况处理)  
+    if (!~index)                                    index = 0
+
+    $items.eq(index).trigger('focus')
+  }
 ```
