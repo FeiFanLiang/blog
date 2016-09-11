@@ -17,12 +17,12 @@ var e = jQuery.Event( "keydown", { keyCode: 64 } );
 jQuery( "body" ).trigger( e );
 ```
 `event`这个对象的属性,在跨浏览器中,支持的一些属性
-1. target
-1. relatedTarget
-1. pageX
-1. pageY
-1. which
-1. metaKey
+- target
+- relatedTarget
+- pageX
+- pageY
+- which
+- metaKey
 
 `event`其他的一些属性,会因为事件的不同而不同:
 
