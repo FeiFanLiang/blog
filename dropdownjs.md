@@ -91,7 +91,7 @@ $('#dropdownMenu').trigger('click.data-api')
     if (!selector) {
       //是否有`href`属性,有的话,该元素指定为其父元素
       selector = $this.attr('href')
-      //对url进行处理
+      //对url进行处理(将最后一个#前的字符用''替换)
       selector = selector && /#[A-Za-z]/.test(selector) && selector.replace(/.*(?=#[^\s]*$)/, '') // strip for ie7
     }
     var $parent = selector && $(selector)
