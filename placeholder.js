@@ -1,6 +1,5 @@
 /**
- * 兼容ie8,9 placeholder问题  Placeholder
- * @author zhangxin14
+ * 兼容ie8,9 placeholder  Placeholder
  * @date 2016-06-08
  */
 +function($) {
