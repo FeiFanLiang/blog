@@ -49,6 +49,7 @@
 ***
 #### [on()](http://api.jquery.com/on/)
 `.on( events [, selector ] [, data ], handler )`
+
 一般的事件绑定,与`$().click()`没有什么区别
 ```javascript
   $('div').on('click',function(){
@@ -67,7 +68,8 @@
     console.log(this.tagName);
   })
 ```
-.on( events [, selector ] [, data ] )
+`.on( events [, selector ] [, data ] )`
+
 第二种传参方式
 ```javascript
   $('div').on({
