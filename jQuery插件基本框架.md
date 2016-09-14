@@ -34,7 +34,7 @@
       //插件初始化后,将其对象存储起来,下次使用插件的时候,判断data时候有数据,如果有数据,则不需要重新初始化插件.若没有数据,则初始化插件
       //这边构造函数中一般可以传入参数(this,option),this指向的是当前遍历的DOM元素,option是外部调用该插件时,传入的自定义参数 <==> 和默认参数想对应,用来覆盖默认参数
       if(!data) $this.data('bs.demo',(data = new Demo(this,option)));
-      //option为字符串时,即插件暴露在外面的方法名,直接调用.需要指定其作用域,和需要的参数
+      //option为字符串时,即插件暴露在外面的方法名
       if(typeof option === 'string') data[option].call($this,params);
     })
   }

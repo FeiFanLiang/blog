@@ -19,7 +19,7 @@ jQuery( "body" ).trigger( e );
 `event`这个对象的属性,在跨浏览器中,支持的一些属性
 - target
 - relatedTarget
-- pageX
+- pageXy678
 - pageY
 - which
 - metaKey
