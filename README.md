@@ -3,6 +3,7 @@
 - [单例模式](https://github.com/zimplexing/zzZ/issues/13)
 - [代理模式](https://github.com/zimplexing/zzZ/issues/15)
 - [迭代器模式](https://github.com/zimplexing/zzZ/issues/16)
+- [发布-订阅模式](https://github.com/zimplexing/zzZ/issues/17)
 
 ## vue开发日记
 - [初探vue组件开发](https://github.com/zimplexing/zzZ/issues/1)
