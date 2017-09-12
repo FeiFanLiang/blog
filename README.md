@@ -14,3 +14,10 @@
 - [gulp学习笔记](https://github.com/zimplexing/zzZ/issues/3) 
 - [github之第三方登录接入](https://github.com/zimplexing/zzZ/issues/8)
 - [数组扁平化去重排序](https://github.com/zimplexing/zzZ/issues/19)
+- [基础知识](https://github.com/zimplexing/zzZ/issues/7)
+
+## 往事随风
+- [jquery事件对象解析](https://github.com/zimplexing/zzZ/issues/10)
+- [jQuery杂记](https://github.com/zimplexing/zzZ/issues/6)
+- [bootstrap-tab标签源码解读](https://github.com/zimplexing/zzZ/issues/5)
+- [bootstrap-dropdown源码解读](https://github.com/zimplexing/zzZ/issues/2)
