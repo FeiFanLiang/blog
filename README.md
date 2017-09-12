@@ -13,3 +13,4 @@
 ## 其他
 - [gulp学习笔记](https://github.com/zimplexing/zzZ/issues/3) 
 - [github之第三方登录接入](https://github.com/zimplexing/zzZ/issues/8)
+- [数组扁平化去重排序](https://github.com/zimplexing/zzZ/issues/19)
