@@ -15,6 +15,7 @@
 - [github之第三方登录接入](https://github.com/zimplexing/zzZ/issues/8)
 - [数组扁平化去重排序](https://github.com/zimplexing/zzZ/issues/19)
 - [基础知识](https://github.com/zimplexing/zzZ/issues/7)
+- [至少花了半天时间解决的问题](https://github.com/zimplexing/zzZ/issues/20)
 
 ## 往事随风
 - [jquery事件对象解析](https://github.com/zimplexing/zzZ/issues/10)
