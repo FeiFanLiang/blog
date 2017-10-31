@@ -127,6 +127,7 @@
         return index;
       },
 
+      //　处理勾选状态
       handleSelectChange(checked, indeterminate) {
         if (this.oldChecked !== checked && this.oldIndeterminate !== indeterminate) {
           this.tree.$emit('check-change', this.node.data, checked, indeterminate);
@@ -147,11 +148,14 @@
       },
 
       handleExpandIconClick() {
+        // 非父节点，直接返回，不做处理
         if (this.node.isLeaf) return;
         if (this.expanded) {
+          // 节点收起
           this.tree.$emit('node-collapse', this.node.data, this.node, this);
           this.node.collapse();
         } else {
+          // 节点展开
           this.node.expand();
           this.$emit('node-expand', this.node.data, this.node, this);
         }
@@ -169,7 +173,7 @@
 
     created() {
       const parent = this.$parent;
-
+      // 只有根节点才有`isTree`字段，在`tree`创建时候增加的字段
       if (parent.isTree) {
         this.tree = parent;
       } else {
@@ -182,21 +186,26 @@
       }
 
       const props = tree.props || {};
+      // 获取配置数据子节点的`key`，默认为`children`
       const childrenKey = props['children'] || 'children';
 
+      // 监听数据变化，更新树
       this.$watch(`node.data.${childrenKey}`, () => {
         this.node.updateChildren();
       });
 
       this.showCheckbox = tree.showCheckbox;
 
+      // 节点的展开
       if (this.node.expanded) {
         this.expanded = true;
         this.childNodeRendered = true;
       }
 
+      // 手风琴式，同级节点只能展开一个
       if(this.tree.accordion) {
         this.$on('tree-node-expand', node => {
+          // 如果展开的非当前节点，全部关闭
           if(this.node !== node) {
             this.node.collapse();
           }

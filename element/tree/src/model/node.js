@@ -49,6 +49,7 @@ const reInitChecked = function(node) {
   }
 };
 
+// 获取某个参数的值
 const getPropertyFromData = function(node, prop) {
   const props = node.store.props;
   const data = node.data || {};
@@ -232,10 +233,12 @@ export default class Node {
     this.insertChild(child, index);
   }
 
+  // 根据树节点移除子节点
   removeChild(child) {
     const index = this.childNodes.indexOf(child);
 
     if (index > -1) {
+      //　注销`nodeMaps`中的映射关系
       this.store && this.store.deregisterNode(child);
       child.parent = null;
       this.childNodes.splice(index, 1);
@@ -244,6 +247,7 @@ export default class Node {
     this.updateLeafState();
   }
 
+  // 根据现有的数据移除子节点数据
   removeChildByData(data) {
     let targetNode = null;
     this.childNodes.forEach(node => {
@@ -288,12 +292,14 @@ export default class Node {
     }
   }
 
+  // 插入节点数据
   doCreateChildren(array, defaultProps = {}) {
     array.forEach((item) => {
       this.insertChild(objectAssign({ data: item }, defaultProps));
     });
   }
 
+  // 收起节点
   collapse() {
     this.expanded = false;
   }
@@ -383,11 +389,13 @@ export default class Node {
     }
   }
 
+  // 获取子节点数据
   getChildren() { // this is data
     const data = this.data;
     if (!data) return null;
 
     const props = this.store.props;
+    // 获取数据中子节点的`key`
     let children = 'children';
     if (props) {
       children = props.children || 'children';
@@ -408,17 +416,21 @@ export default class Node {
     const newNodes = [];
 
     newData.forEach((item, index) => {
+      // 原有的树节点数据
       if (item[NODE_KEY]) {
         newDataMap[item[NODE_KEY]] = { index, data: item };
       } else {
+        // 新增的树节点数据
         newNodes.push({ index, data: item });
       }
     });
 
+    // 移除原有数据与现有数据有差异的节点
     oldData.forEach((item) => {
       if (!newDataMap[item[NODE_KEY]]) this.removeChildByData(item);
     });
 
+    //　将新增的节点重新插入
     newNodes.forEach(({ index, data }) => {
       this.insertChild({ data }, index);
     });
@@ -426,6 +438,7 @@ export default class Node {
     this.updateLeafState();
   }
 
+  // 异步树加载时，重新加载数据
   loadData(callback, defaultProps = {}) {
     if (this.store.lazy === true && this.store.load && !this.loaded && (!this.loading || Object.keys(defaultProps).length)) {
       this.loading = true;

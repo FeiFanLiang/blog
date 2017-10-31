@@ -30,20 +30,24 @@ export default class TreeStore {
     }
   }
 
+  // 过滤节点
   filter(value) {
     const filterNodeMethod = this.filterNodeMethod;
     const traverse = function(node) {
       const childNodes = node.root ? node.root.childNodes : node.childNodes;
 
+      // 遍历子节点，根据外部的过滤函数来设置节点的`visible`值
       childNodes.forEach((child) => {
         child.visible = filterNodeMethod.call(child, value, child.data, child);
 
         traverse(child);
       });
 
+      // 设置当前节点的显示与隐藏
       if (!node.visible && childNodes.length) {
         let allHidden = true;
 
+        // 如果当前节点下的子节点需要显示
         childNodes.forEach((child) => {
           if (child.visible) allHidden = false;
         });
@@ -122,7 +126,6 @@ export default class TreeStore {
   }
 
   setDefaultCheckedKey(newVal) {
-    debugger;
     if (newVal !== this.defaultCheckedKeys) {
       this.defaultCheckedKeys = newVal;
       this._initDefaultCheckedNodes();
@@ -137,6 +140,7 @@ export default class TreeStore {
     if (nodeKey !== undefined) this.nodesMap[node.key] = node;
   }
 
+  // 注销nodeKey与树节点数据的映射关系
   deregisterNode(node) {
     const key = this.key;
     if (!key || !node || !node.data) return;
@@ -150,6 +154,7 @@ export default class TreeStore {
     delete this.nodesMap[node.key];
   }
 
+  // 获取当前勾选的节点
   getCheckedNodes(leafOnly = false) {
     const checkedNodes = [];
     const traverse = function(node) {
@@ -169,6 +174,7 @@ export default class TreeStore {
     return checkedNodes;
   }
 
+  // 获取当前勾选的节点的key
   getCheckedKeys(leafOnly = false) {
     const key = this.key;
     const allNodes = this._getAllNodes();
@@ -183,6 +189,7 @@ export default class TreeStore {
     return keys;
   }
 
+  // 获取所有的节点
   _getAllNodes() {
     const allNodes = [];
     const nodesMap = this.nodesMap;
@@ -195,6 +202,7 @@ export default class TreeStore {
     return allNodes;
   }
 
+  // 根据`nodKey`更新子节点
   updateChildren(key, data) {
     const node = this.nodesMap[key];
     if (!node) return;

@@ -123,6 +123,7 @@
       }
     },
 
+    // `defaultCheckedKeys`,`defaultExpandedKeys`,`data`,可以后续进行修改
     watch: {
       defaultCheckedKeys(newVal) {
         this.store.defaultCheckedKeys = newVal;
@@ -137,6 +138,7 @@
       }
     },
 
+    //　一些对外暴露的事件
     methods: {
       filter(value) {
         if (!this.filterNodeMethod) throw new Error('[Tree] filterNodeMethod is required when filter');
@@ -197,6 +199,8 @@
     created() {
       this.isTree = true;
 
+      // 以下字段，在树渲染完成之后，再次修改这些字段则无法生效，需要重新销毁树后才能生效
+      // 除了`defaultCheckedKeys`,`defaultExpandedKeys`,`data`,在watch中做了处理
       this.store = new TreeStore({
         key: this.nodeKey,
         data: this.data,
