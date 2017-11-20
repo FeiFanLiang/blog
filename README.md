@@ -10,13 +10,16 @@
 ## vue开发日记
 - [初探vue组件开发](https://github.com/zimplexing/zzZ/issues/1)
 - [vue&element-ui开发小结](https://github.com/zimplexing/zzZ/issues/14)
-
+- [element-ui树形组件el-tree源码阅读](https://github.com/zimplexing/zzZ/issues/22)
 ## 其他
 - [gulp学习笔记](https://github.com/zimplexing/zzZ/issues/3) 
 - [github之第三方登录接入](https://github.com/zimplexing/zzZ/issues/8)
 - [数组扁平化去重排序](https://github.com/zimplexing/zzZ/issues/19)
 - [基础知识](https://github.com/zimplexing/zzZ/issues/7)
 - [至少花了半天时间解决的问题](https://github.com/zimplexing/zzZ/issues/20)
+- [把模块化彻底搞个明白（ES6模块/CommonJS/AMD/CMD）](https://github.com/zimplexing/zzZ/issues/23)
+- [String和Array中的变与不变](https://github.com/zimplexing/zzZ/issues/24)
+- [一些软件的使用小技巧](https://github.com/zimplexing/zzZ/issues/25)
 
 ## 往事随风
 - [jquery事件对象解析](https://github.com/zimplexing/zzZ/issues/10)
