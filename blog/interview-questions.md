@@ -197,13 +197,35 @@
 
   > `vue`中实现是通过`defineProperty`属性实现的，还可以通过`es6`的`proxy`属性来实现数据的双向绑定
   >
-  > 1. 将`data`对象通过`defineProperty`重写`getter`和`setter`对`data`中的数据进行劫持,实现对数据变化的监听
-  > 2. 数据变化之后，对html模板进行更新
-  > 3. 一个watcher，订阅data属性值变化的通知，并执行回调函数，更新模板
+  > 1. 将`data`对象通过`defineProperty`重写`getter`和`setter`对`data`中的数据进行劫持,实现对数据变化的监听，并每个属性都维护了一个订阅器`dep`，用户存储订阅该属性变化的订阅者「依赖收集」。
+  > 2. 模板的编译函数，用于解析vue的指令，将模板渲染成html模板
+  > 3. 一个watcher「订阅者」，订阅data属性值变化的消息，并执行回调函数，更新模板
 
-- emit 实现原理
+  ![](https://raw.githubusercontent.com/DMQ/mvvm/master/img/2.png)
 
-- computed与watch的却别，及computed的实现原理
+  参考文档： https://github.com/DMQ/mvvm
+
+- emit on once off原理
+
+  > 利用了观察者订阅者模式，事件都放在`vm`实例的`_event`对象上
+
+- computed与watch的区别，及computed的实现原理
+
+  `computed`会缓存起来，`watch`不会被缓存
+
+  **watch**
+
+  > 遍历`watch`对象的所有属性，对`watch`的属性做响应式处理，即对每个属性的订阅器添加一个订阅者（`watcher`），改订阅者的回调就是`watch`的`handler`
+
+  **computed**
+
+  > 1. 与watch一样，对computed的属性做响应式处理，但是watch的参数expFun是自定义的getter，回调函数cb是noop。
+  > 2. 模板的中的指令订阅某计算属性时，就会触发vue的数据双向绑定机制，computed的某个属性的订阅器中增加一个订阅器（模板指令）
+  > 3. 触发该属性的getter，那么就会去获取该属性依赖的数据，则会触发依赖数据的getter，依赖数据将该计算属性作为订阅者加入到自己的订阅器中。
+  > 4. 当计算数据依赖的数据发生变化时，依赖数据会对自己订阅器中的订阅者发送消息，触发订阅者「步骤1中的watch」的update方法，将dirty更新为true，重新计算新的值（watcher.get() --> this.getter.call(vm, vm)，这里的getter就是自定义的expFun），导致该属性的变化
+  > 5. 触发「步骤2中的watch」，更新视图
+
+  参考文档：https://github.com/banama/aboutVue/blob/master/vue-observe.md
 
 - 生命周期
 
@@ -254,5 +276,7 @@
 ### 项目中遇到的问题
 
 多人协作git提交
+
+大数据量大树组件的性能问题
 
 ### 最满意的项目
