@@ -49,15 +49,18 @@
 
 - http2.0 
 
-  > 多路复用，通过单个http2连接发起多个请求。
-  >
-  > 服务端推送
-  >
-  > 头部使用新的压缩方式HPACK，传输使用二进制格式来传输
-  >
-  > 二进制分帧 
+  > 1. HTTP/2 采用**二进制格式传输数据**，而非 HTTP/1.x 的文本格式。二进制格式在协议的解析和优化扩展上带来更多的优势和可能。
+  > 2. HTTP/2 对**消息头采用 HPACK 进行压缩传输**，能够节省消息头占用的网络的流量。而 HTTP/1.x 每次请求，都会携带大量冗余头信息，浪费了很多带宽资源。头压缩能够很好的解决该问题。
+  > 3. **多路复用**，直白的说就是所有的请求都是通过一个 TCP 连接并发完成。HTTP/1.x 虽然通过 [pipeline](http://en.wikipedia.org/wiki/HTTP_pipelining) 也能并发请求，但是多个请求之间的响应会被[阻塞](http://en.wikipedia.org/wiki/Head-of-line_blocking)的，所以 [pipeline](http://en.wikipedia.org/wiki/HTTP_pipelining) 至今也没有被普及应用，而 HTTP/2 做到了真正的并发请求。同时，流还支持优先级和流量控制。
+  > 4. **服务端推送**：服务端能够更快的把资源推送给客户端。例如服务端可以主动把 JS 和 CSS 文件推送给客户端，而不需要客户端解析 HTML 再发送这些请求。当客户端需要的时候，它已经在客户端了。
 
 - websocket
+
+  > 是一种基于tcp协议的服务器推送技术
+  >
+  > 没有同源性限制
+  >
+  > 是一种长连接。
 
 - 状态码
 
@@ -113,6 +116,10 @@
   https://www.cnblogs.com/imwtr/p/7801973.html
 
 ### 模块化
+
+![](https://raw.githubusercontent.com/zimplexing/zzZ/master/images/modules.png)
+
+参考资料：https://github.com/zimplexing/zzZ/issues/23
 
 ### 跨域
 
