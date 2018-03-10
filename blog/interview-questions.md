@@ -277,13 +277,17 @@ http://www.ruanyifeng.com/blog/2014/10/event-loop.html
  
  *原型链继承*
  
- b.prototype = new a()
+ ```javascript
+  b.prototype = new a()
+ ```
  
  *借用构造函数继承*
  
+ ```javascript
  Function B () {
    A.call(this)
  }
+ ```
  
  *组合继承*
  
@@ -291,29 +295,35 @@ http://www.ruanyifeng.com/blog/2014/10/event-loop.html
  
  *原型式继承*
  
+  ```javascript
  function object(obj){
    function F(){}
    F.prototype = obj
    return new F()
  }
+ ```
  
  Object.create()也能实现该效果
  
  *寄生式继承*
  
+ ```javascript
  function B(obj){
    var clone = object(obj)
    clone.xx = function () {}
    return clone
  }
+ ```
  
  *寄生组合式继承*
-
+ 
+ ```javascript
  function inheritPrototype (A, B) {
   var prototype = object(A.prototype) 
   B.prototype = prototype
   B.prototype.constrctor = B
  }
+ ```
 
 - this指向
 
