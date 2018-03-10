@@ -260,6 +260,60 @@ http://www.ruanyifeng.com/blog/2014/10/event-loop.html
 - 闭包
 
 - 继承，面向对象，es6与es5的实现方式
+ 
+ **创建对象：**
+ 
+ *工厂模式*
+ 
+ *构造函数模式*
+ 
+ *原型模式*
+ 
+ *组合模式*
+
+ *寄生构造模式*
+ 
+ **继承：**
+ 
+ *原型链继承*
+ 
+ b.prototype = new a()
+ 
+ *借用构造函数继承*
+ 
+ Function B () {
+   A.call(this)
+ }
+ 
+ *组合继承*
+ 
+ 方法继承通过原型链继承，属性继承通过借用构造函数继承
+ 
+ *原型式继承*
+ 
+ function object(obj){
+   function F(){}
+   F.prototype = obj
+   return new F()
+ }
+ 
+ Object.create()也能实现该效果
+ 
+ *寄生式继承*
+ 
+ function B(obj){
+   var clone = object(obj)
+   clone.xx = function () {}
+   return clone
+ }
+ 
+ *寄生组合式继承*
+
+ function inheritPrototype (A, B) {
+  var prototype = object(A.prototype) 
+  B.prototype = prototype
+  B.prototype.constrctor = B
+ }
 
 - this指向
 
