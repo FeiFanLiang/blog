@@ -64,7 +64,7 @@
 
 - 状态码
 
-  > 200 请求成功 、202 服务器接受了请求，但是未处理、204 请求成功，但是没有消息体、301资源被永久移动、 302资源被临时移动 、304缓存、400请求参数错误、 403禁止请求 、404无法找到资源 、500服务器内部错误、 502无效请求
+  > 200 请求成功 、301资源被永久移动、 302资源被临时移动 、304缓存、400请求参数错误、 403禁止请求 、404无法找到资源 、500服务器内部错误、 502无效请求
 
 - post请求与get请求的区别
 
@@ -82,7 +82,11 @@
   > 1. 创建对象XMLHttpRequest/ActiveObject对象
   > 2. open send onreadystatechange readystate（0对象被创建、1调用open方法、2调用send方法、3loading状态、4下载完成 ）status 兼容性 xdomainrequest
 
-### 抽象语法树 babel插件
+### 抽象语法树
+
+> 1. 解析：词法解析和语法解析
+> 2. 转化
+> 3. 生成代码，深度优先遍历ATS
 
 ### 网页性能优化
 
@@ -104,16 +108,31 @@
 
 ### webpack优化
 
+- 缩小文件的搜索范围,优化loader的`test`，`include`，`exclude`，尽量减少extentions配置，引入模块时尽量把后缀带上
+
+
 - 通过`CommonsChunkPlugin`将通用的代码打包到一起，减少打包提交，也能利用浏览器缓存，提高浏览器文件的加载速度。
+
 - 通过配置externals，将第三方库通过script标签从cdn上引入，减少打包体积
+
 - 通过dll，对依赖的第三方库建立索引，减少打包体积
+
 - 选择不同的`devtool`配置
+
 - 业务代码异步加载，减少打包提交「require.ensure」
+
 - 对使用的第三方库，按需引入
+
 - `happypack`插件
   参考资料
   https://segmentfault.com/a/1190000005969643
   https://www.cnblogs.com/imwtr/p/7801973.html
+
+  http://webpack.wuhaolin.cn/4%E4%BC%98%E5%8C%96/4-1%E7%BC%A9%E5%B0%8F%E6%96%87%E4%BB%B6%E6%90%9C%E7%B4%A2%E8%8C%83%E5%9B%B4.html
+
+### webpack运行原理
+
+参考资料：http://webpack.wuhaolin.cn/5%E5%8E%9F%E7%90%86/
 
 ### 模块化
 
@@ -179,8 +198,22 @@
 - BFC
 - 清浮动
 - 页面重绘重排
+- css3 动画
 
 ### js
+
+- 类型判断：typeof   Object.prototype.toString.call() instanceof 
+
+  ```javascript
+  // 隐性转化时，对象会先调用valueOf 和 toString 方法
+  [] == false          // true
+  {} == false          // false
+  undefined == null    // true
+  undefined === null   // false
+  NaN === NaN          // false
+  -0 === +0            // true
+  ```
+
 
 - es6
   - 装饰器原理
@@ -197,7 +230,23 @@
     >
     > 参考文档：https://tech.meituan.com/promise-insight.html
 
-- 事件机制
+- 事件流
+
+  事件流描述的是从页面中接收事件的顺序，事件流分为三个阶段：事件捕获阶段、处于目标阶段、事件冒泡阶段。在捕获阶段，事件从文档的根节点向触发事件的dom节点传递，传递到事件触发节点后，开始冒泡阶段，从当前节点向文档的更节点传递。
+
+  > **html事件处理程序**
+  >
+  > 在html标签上进行绑定事件，事件的回调函数中的this指向的是全局对象window
+  >
+  > **dom0级事件处理程序**
+  >
+  > 通过获取dom节点对象引用后绑定事件。通过这种方式绑定的事件，同一个dom节点同一个时间只能注册一次，后边注册的会覆盖前面的。事件的回调只能在冒泡阶段被触发。this指向当前节点对象的引用
+  >
+  > **dom2级事件处理程序**
+  >
+  > 通过addEventListener绑定事件。通过第三个参数可以指定事件处理程序在冒泡阶段或者捕获阶段触发。默认是在冒泡阶段触发事件处理程序。this也是指向绑定事件的节点对象的引用。
+
+  target和currentTarget的区别：currentTarget用于和this相等，是指绑定事件处理程序的那个元素，target是指触发事件处理程序的那个元素。不是在事件委托的情况下，三者是相同的。
 
 - 事件循环（setTimeout，nextTick，promise，await）
 
@@ -210,6 +259,8 @@
 - 常用设计模式（单例，观察者）
 
 - 节流和防抖函数
+
+- 快排
 
 ### vue
 
@@ -300,3 +351,9 @@
 大数据量大树组件的性能问题
 
 ### 最满意的项目
+
+为什么离职
+
+有什么想问的
+
+自我介绍
