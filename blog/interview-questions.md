@@ -215,7 +215,12 @@
   ```
 
 
+- 函数的内置函数
+
+  `keys` `assgin` `values` `create`  `defineProperty` `definepProperties`  `isPropertyOf` `hasOwnProperty` `toString` `valueOf` `propertyIsEnumerable`
+
 - es6
+
   - 装饰器原理
 
     > 用于增强类和类方法功能，但是不能用于方法，因为方法存在变量提升。原理是利用了es5的defineproperty属性。
@@ -249,81 +254,125 @@
   target和currentTarget的区别：currentTarget用于和this相等，是指绑定事件处理程序的那个元素，target是指触发事件处理程序的那个元素。不是在事件委托的情况下，三者是相同的。
 
 - 事件循环（setTimeout，nextTick，promise，await）
-  
-     因为js是单进程的，所以也就有了事件循环这一机制。在主进程上执行的一般被称为执行栈，用于执行异步任务的一般称为任务队列。任务队列中，一般又分为   marcotask（宏任务）和mircotask（微任务），一般全局的执行栈可以理解为第一个宏任务，js脚本首先会执行宏任务，在执行宏任务的过程中，会有异步任务（回调函数），这些异步任务会生成一个任务队列。在这些异步任务中同样有宏任务和微任务之分，其中的微任务会在当前宏任务执行完之后执行，也就说在在新的宏任务执行前执行，其中的宏任务会成为“新”的一个执行栈（主进程的执行栈清空之后，会读取任务队列），这样就形成了一个循环，也就是事件循环。
 
-  上述的宏任务一般包括：setTimeout，setInterval，I/O任务，setImmediate，ui渲染。微任务一般包括process.nextTick，Promise。其中对于多个setTimeout，setInterval，会被合并到同一个宏任务中，process.nextTick在Promise之前执行，其中promise的then才属于微任务，new promise是同步的，直接执行。
-参考资料：
-https://juejin.im/entry/58d3f7a944d9040068600c49
-http://www.ruanyifeng.com/blog/2014/10/event-loop.html
+     ​	因为js是单进程的，所以也就有了事件循环这一机制。在主进程上执行的一般被称为执行栈，用于执行异步任务的一般称为任务队列。任务队列中，一般又分为   marcotask（宏任务）和mircotask（微任务），一般全局的执行栈可以理解为第一个宏任务，js脚本首先会执行宏任务，在执行宏任务的过程中，会有异步任务（回调函数），这些异步任务会生成一个任务队列。在这些异步任务中同样有宏任务和微任务之分，其中的微任务会在当前宏任务执行完之后执行，也就说在在新的宏任务执行前执行，其中的宏任务会成为“新”的一个执行栈（主进程的执行栈清空之后，会读取任务队列），这样就形成了一个循环，也就是事件循环。
+
+      	 上述的宏任务一般包括：setTimeout，setInterval，I/O任务，setImmediate，ui渲染。微任务一般包括process.nextTick，Promise。其中对于多个setTimeout，setInterval，会被合并到同一个宏任务中，process.nextTick在Promise之前执行，其中promise的then才属于微任务，new promise是同步的，直接执行。
+     参考资料：
+     https://juejin.im/entry/58d3f7a944d9040068600c49
+     http://www.ruanyifeng.com/blog/2014/10/event-loop.html
 
 - 闭包
 
 - 继承，面向对象，es6与es5的实现方式
- 
- **创建对象：**
- 
- *工厂模式*
- 
- *构造函数模式*
- 
- *原型模式*
- 
- *组合模式*
 
- *寄生构造模式*
- 
- **继承：**
- 
- *原型链继承*
- 
- ```javascript
-  b.prototype = new a()
- ```
- 
- *借用构造函数继承*
- 
- ```javascript
- Function B () {
-   A.call(this)
- }
- ```
- 
- *组合继承*
- 
- 方法继承通过原型链继承，属性继承通过借用构造函数继承
- 
- *原型式继承*
- 
+  **创建对象：**
+
+  *工厂模式*
+
   ```javascript
- function object(obj){
-   function F(){}
-   F.prototype = obj
-   return new F()
- }
- ```
- 
- Object.create()也能实现该效果
- 
- *寄生式继承*
- 
- ```javascript
- function B(obj){
-   var clone = object(obj)
-   clone.xx = function () {}
-   return clone
- }
- ```
- 
- *寄生组合式继承*
- 
- ```javascript
- function inheritPrototype (A, B) {
-  var prototype = object(A.prototype) 
-  B.prototype = prototype
-  B.prototype.constrctor = B
- }
- ```
+  function factory (name, age) {
+    var o = {
+      name: name,
+      age: age,
+      getAge: function () {
+        return this.age
+      }
+    };
+    return o
+  }
+  ```
+
+  *构造函数模式*
+
+  ```javascript
+  function Person (name, age) {
+    this.name = name;
+    this.age = age;
+    this.getAge = function () {
+      return this.age
+    }
+  } 
+  var person = new Person('zinplexing', 25)
+  // 1. 新建一个对象
+  // 2. 将新建的对象的作用域指向构造函数
+  // 3. 执行构造函数
+  // 4. 返回新建对象
+  ```
+
+  *原型模式*
+
+  ```javascript
+
+  ```
+
+  *组合模式*
+
+  ```javascript
+  function Person (name, age) {
+    this.name = name;
+    this.age = age;
+  }
+  Person.prototype.getAge = function () {
+  	return this.age;  
+  }  
+  ```
+
+  *寄生构造模式*
+
+  **继承：**
+
+  *原型链继承*	
+
+
+     ```javascript
+  // 继承的属性值都是共享
+  b.prototype = new a()
+     ```
+
+  *借用构造函数继承*
+
+
+     ```javascript
+  Function B () {
+    A.call(this)
+  }
+     ```
+
+   *组合继承*
+
+   方法继承通过原型链继承，属性继承通过借用构造函数继承	
+
+  ​*原型式继承*
+
+     ```javascript
+  function object(obj){
+    function F(){}
+    F.prototype = obj
+    return new F()
+  }
+  // Object.create()也能实现该效果
+     ```
+
+   *寄生式继承*
+
+     ```javascript
+  function B(obj){
+    var clone = object(obj)
+    clone.xx = function () {}
+    return clone
+  }
+     ```
+
+   *寄生组合式继承*
+
+     ```javascript
+  function inheritPrototype (A, B) {
+    var prototype = object(A.prototype) 
+    B.prototype = prototype
+    B.prototype.constrctor = B
+  }
+     ```
 
 - this指向
 
