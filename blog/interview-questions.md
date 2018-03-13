@@ -213,7 +213,15 @@
 - BFC
 
      > BFC：块级格式化上下文，它是指一个独立的块级渲染区域，只有Block-level BOX参与，该区域拥有一套渲染规则来约束块级盒子的布局，且与区域外部无关。
-  BFC的触发条件
+  **BFC的触发条件：**
+
+  - 根元素
+  - float的值不为none
+  - overflow的值不为visible
+  - display的值为inline-block、table-cell、table-caption
+  - position的值为absolute或fixed
+
+  **BFC特性：**
 
      - BFC会阻止垂直外边距（margin-top、margin-bottom）折叠
      - BFC不会重叠浮动元素 (用于解决布局基本的两栏或三栏布局)
@@ -227,9 +235,28 @@
 
 - 清浮动
 
-- 页面重绘重排
+  - 页面重绘重排	
 
 - css3 动画
+
+  ```css
+  // css永久动画
+  @keyframes go {
+    0% {
+      transform: translateX(0)
+    }
+    50% {
+      transform: translateX(180px)
+    } 
+    100% {
+      transform: translateX(0)
+    }
+  }
+  div {
+    animation: go infinite linear
+  }
+  //js永久动画可以通过requestAnimationFrame来实现
+  ```
 
 ### js
 
@@ -340,7 +367,11 @@
   *原型模式*
 
   ```javascript
-
+  function Person () {}
+  Person.prototype.name = 'zhangx'
+  Person.prototype.getName = function () {
+    return this.name
+  }
   ```
 
   *组合模式*
@@ -356,6 +387,19 @@
   ```
 
   *寄生构造模式*
+
+  ```javascript
+  function Person(name, age) {
+    var o = {
+      name: name,
+      age: age,
+      getAge: function(){
+        return this.age
+      }
+    }
+    return o
+  }
+  ```
 
   **继承：**
 
@@ -420,8 +464,23 @@
 ### 基本算法
 
 - 排序算法
+
 - 数遍历DFS BFS
+
 - 二分法
+
+  ```javascript
+  function binarySearch (arr, target, startIndex, endIndex) {
+    var mid = Math.floor((startIndex + endIndex) / 2)
+    if (arr[mid] > target) {
+      binarySearch(arr, target, startIndex, mid)
+    } else if (arr[mid] < target) {
+      binarySearch(arr, target, mid, endIndex)
+    } else {
+      return mid
+    }
+  }
+  ```
 
 ### vue
 
