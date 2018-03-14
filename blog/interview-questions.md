@@ -140,6 +140,10 @@
 
 参考资料：https://github.com/zimplexing/zzZ/issues/23
 
+### require引入模块原理
+
+
+
 ### 跨域
 
 1.   不同源的文档之间的通信
