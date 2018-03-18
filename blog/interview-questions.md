@@ -130,13 +130,25 @@
 
   http://webpack.wuhaolin.cn/4%E4%BC%98%E5%8C%96/4-1%E7%BC%A9%E5%B0%8F%E6%96%87%E4%BB%B6%E6%90%9C%E7%B4%A2%E8%8C%83%E5%9B%B4.html
 
-## [todo]webpack运行原理
+## webpack运行原理
 
-### loader原理
+webpack在打包过程中，主要分为以下3个阶段
 
-### plugin原理
+1. 初始化：启动构建，读取与合并配置参数，加载 Plugin，实例化 Compiler。
+2. 编译：从 Entry 发出，针对每个 Module 串行调用对应的 Loader 去翻译文件内容，再找到该 Module 依赖的 Module，递归地进行编译处理。
+3. 输出：对编译后的 Module 组合成 Chunk，把 Chunk 转换成文件，输出到文件系统。
 
-参考资料：http://webpack.wuhaolin.cn/5%E5%8E%9F%E7%90%86/
+文件发生变化时，重新执行步骤2、步骤3。
+
+常见的几个event hooks：
+
+`before-run`、`run`、`watch-run`、`before-compile`、`compile`、`compilation`、`emit`、`after-emit`
+
+参考资料：
+
+https://webpack.js.org/api/compiler/
+
+http://webpack.wuhaolin.cn/5%E5%8E%9F%E7%90%86/
 
 ## 模块化
 
@@ -156,7 +168,7 @@ http://es6.ruanyifeng.com/#docs/module-loader#%E5%BE%AA%E7%8E%AF%E5%8A%A0%E8%BD%
 
 https://github.com/zimplexing/zzZ/issues/23
 
-## require引入模块原理
+## require机制
 
 ```
 require(X) from module at path Y
