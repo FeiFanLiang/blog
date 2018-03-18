@@ -4,18 +4,18 @@
 
  三次握手
 
-  1. 客户端发送一个含有sync标记的数据包给服务器
-  2. 服务器收到之后，发送一个含有sync/ack标记的数据包给客户端
-  3. 客户端发送含有ack标记的数据包给服务器
+    1. 客户端发送一个含有sync标记的数据包给服务器
+    2. 服务器收到之后，发送一个含有sync/ack标记的数据包给客户端
+    3. 客户端发送含有ack标记的数据包给服务器
 
  然后开始通信
 
  四次挥手
 
-  1. 客户端发送一个fin标记的数据包给服务器
-  2. 服务器收到之后，发送一个ack标记的数据包给客户端
-  3. 服务器所有数据传输完成之后，发送一个fin标记的数据包给客户端
-  4. 客户端收到之后，发送一个ack标记的数据包给服务器
+    1. 客户端发送一个fin标记的数据包给服务器
+    2. 服务器收到之后，发送一个ack标记的数据包给客户端
+    3. 服务器所有数据传输完成之后，发送一个fin标记的数据包给客户端
+    4. 客户端收到之后，发送一个ack标记的数据包给服务器
 
  通信结束
 
@@ -27,8 +27,8 @@
 
  Etag用于标记文件是否被修改过，Etag优于last-modified的地方有：
 
-  1. 文件内容内有被修改，只有文件的修改时间有变化，Etag还是能很好的进行缓存
-  2. last-modified只能识别秒级别的文件修改操作，小于秒级别的操作无法识别
+    1. 文件内容内有被修改，只有文件的修改时间有变化，Etag还是能很好的进行缓存
+    2. last-modified只能识别秒级别的文件修改操作，小于秒级别的操作无法识别
 
 参考文档：https://www.cnblogs.com/wonyun/p/5524617.html
 
@@ -38,21 +38,21 @@
 
  https数据传输过程：
 
-  1. 客户端和服务器协商加密组件和协议版本
-  2. 服务端发送一个含有一个用于加密对称秘钥的公钥的证书给客户端
-  3. 客户端收到证书之后，验证证书的有效性，取出公钥
-  4. 用公钥加密对称加密的秘钥，发送给服务器
-  5. 服务器用非对称加密的秘钥解密，得要对称加密的秘钥
-  6. 服务器和客户端之前使用对称加密之后的数据进行通信
+    1. 客户端和服务器协商加密组件和协议版本
+    2. 服务端发送一个含有一个用于加密对称秘钥的公钥的证书给客户端
+    3. 客户端收到证书之后，验证证书的有效性，取出公钥
+    4. 用公钥加密对称加密的秘钥，发送给服务器
+    5. 服务器用非对称加密的秘钥解密，得要对称加密的秘钥
+    6. 服务器和客户端之前使用对称加密之后的数据进行通信
 
 参考文档：《图解http》
 
 ### http2.0 
 
-  1. HTTP/2 采用**二进制格式传输数据**，而非 HTTP/1.x 的文本格式。二进制格式在协议的解析和优化扩展上带来更多的优势和可能。
-  2. HTTP/2 对**消息头采用 HPACK 进行压缩传输**，能够节省消息头占用的网络的流量。而 HTTP/1.x 每次请求，都会携带大量冗余头信息，浪费了很多带宽资源。头压缩能够很好的解决该问题。
-  3. **多路复用**，直白的说就是所有的请求都是通过一个 TCP 连接并发完成。HTTP/1.x 虽然通过 [pipeline](http://en.wikipedia.org/wiki/HTTP_pipelining) 也能并发请求，但是多个请求之间的响应会被[阻塞](http://en.wikipedia.org/wiki/Head-of-line_blocking)的，所以 [pipeline](http://en.wikipedia.org/wiki/HTTP_pipelining) 至今也没有被普及应用，而 HTTP/2 做到了真正的并发请求。同时，流还支持优先级和流量控制。
-  4. **服务端推送**：服务端能够更快的把资源推送给客户端。例如服务端可以主动把 JS 和 CSS 文件推送给客户端，而不需要客户端解析 HTML 再发送这些请求。当客户端需要的时候，它已经在客户端了。
+    1. HTTP/2 采用**二进制格式传输数据**，而非 HTTP/1.x 的文本格式。二进制格式在协议的解析和优化扩展上带来更多的优势和可能。
+    2. HTTP/2 对**消息头采用 HPACK 进行压缩传输**，能够节省消息头占用的网络的流量。而 HTTP/1.x 每次请求，都会携带大量冗余头信息，浪费了很多带宽资源。头压缩能够很好的解决该问题。
+    3. **多路复用**，直白的说就是所有的请求都是通过一个 TCP 连接并发完成。HTTP/1.x 虽然通过 [pipeline](http://en.wikipedia.org/wiki/HTTP_pipelining) 也能并发请求，但是多个请求之间的响应会被[阻塞](http://en.wikipedia.org/wiki/Head-of-line_blocking)的，所以 [pipeline](http://en.wikipedia.org/wiki/HTTP_pipelining) 至今也没有被普及应用，而 HTTP/2 做到了真正的并发请求。同时，流还支持优先级和流量控制。
+    4. **服务端推送**：服务端能够更快的把资源推送给客户端。例如服务端可以主动把 JS 和 CSS 文件推送给客户端，而不需要客户端解析 HTML 再发送这些请求。当客户端需要的时候，它已经在客户端了。
 
 ### websocket
 
@@ -68,25 +68,27 @@
 
 ### post请求与get请求的区别
 
-  1. post请求的数据在请求体中，get请求的数据在url上。安全性上有一定的区别
-  2. post请求的数据大小没有限制，get请求的数据大小受浏览器和服务器的限制。
-  3. get请求只能进行url编码，post请求支持多种编码方式
-  4. get请求会被缓存下来，post请求则不会
-  5. GET历史参数保留在浏览器历史中。POST参数不会保存在浏览器历史中
-  6. 最大的区别是两者有语义上的区别，GET幂等，POST不幂等
+    1. post请求的数据在请求体中，get请求的数据在url上。安全性上有一定的区别
+    2. post请求的数据大小没有限制，get请求的数据大小受浏览器和服务器的限制。
+    3. get请求只能进行url编码，post请求支持多种编码方式
+    4. get请求会被缓存下来，post请求则不会
+    5. GET历史参数保留在浏览器历史中。POST参数不会保存在浏览器历史中
+    6. 最大的区别是两者有语义上的区别，GET幂等，POST不幂等
 
 参考文档：https://www.zhihu.com/question/28586791
 
 ### 网络请求的发送流程
 
-  1. 创建对象XMLHttpRequest/ActiveObject对象
-  2. open send onreadystatechange readystate（0对象被创建、1调用open方法、2调用send方法、3loading状态、4下载完成 ）status 兼容性 xdomainrequest
+    1. 创建对象XMLHttpRequest/ActiveObject对象
+    2. open send onreadystatechange readystate（0对象被创建、1调用open方法、2调用send方法、3loading状态、4下载完成 ）status 兼容性 xdomainrequest
 
 ## 抽象语法树
 
-  1. 解析：词法解析和语法解析
-  2. 转化
-  3. 生成代码，深度优先遍历ATS
+    1. 解析：词法解析和语法解析
+    2. 转化
+    3. 生成代码，深度优先遍历ATS
+
+参考资料：https://github.com/jamiebuilds/babel-handbook/blob/master/translations/zh-Hans/plugin-handbook.md
 
 ## 网页性能优化
 
@@ -120,8 +122,10 @@
 - 对使用的第三方库，按需引入
 
 - `happypack`插件
-  参考资料
+
+  参考资料：
   https://segmentfault.com/a/1190000005969643
+
   https://www.cnblogs.com/imwtr/p/7801973.html
 
   http://webpack.wuhaolin.cn/4%E4%BC%98%E5%8C%96/4-1%E7%BC%A9%E5%B0%8F%E6%96%87%E4%BB%B6%E6%90%9C%E7%B4%A2%E8%8C%83%E5%9B%B4.html
@@ -138,11 +142,77 @@
 
 ![](https://raw.githubusercontent.com/zimplexing/zzZ/master/images/modules.png)
 
-参考资料：https://github.com/zimplexing/zzZ/issues/23
+### 循环加载
 
-## [todo]require引入模块原理
+commonjs在处理循环加载的时候，由于是同步的，只能拿到已执行代码的结果的。
 
+es6在代码编译阶段就会对import生成一个模块的引用，只要能够保证代码执行的时候能够取值。
 
+参考资料：
+
+http://www.ruanyifeng.com/blog/2015/11/circular-dependency.html
+
+http://es6.ruanyifeng.com/#docs/module-loader#%E5%BE%AA%E7%8E%AF%E5%8A%A0%E8%BD%BD
+
+https://github.com/zimplexing/zzZ/issues/23
+
+## require引入模块原理
+
+```
+require(X) from module at path Y
+1. If X is a core module,
+   a. return the core module
+   b. STOP
+2. If X begins with '/'
+   a. set Y to be the filesystem root
+3. If X begins with './' or '/' or '../'
+   a. LOAD_AS_FILE(Y + X)
+   b. LOAD_AS_DIRECTORY(Y + X)
+4. LOAD_NODE_MODULES(X, dirname(Y))
+5. THROW "not found"
+
+LOAD_AS_FILE(X)
+1. If X is a file, load X as JavaScript text.  STOP
+2. If X.js is a file, load X.js as JavaScript text.  STOP
+3. If X.json is a file, parse X.json to a JavaScript Object.  STOP
+4. If X.node is a file, load X.node as binary addon.  STOP
+
+LOAD_INDEX(X)
+1. If X/index.js is a file, load X/index.js as JavaScript text.  STOP
+2. If X/index.json is a file, parse X/index.json to a JavaScript object. STOP
+3. If X/index.node is a file, load X/index.node as binary addon.  STOP
+
+LOAD_AS_DIRECTORY(X)
+1. If X/package.json is a file,
+   a. Parse X/package.json, and look for "main" field.
+   b. let M = X + (json main field)
+   c. LOAD_AS_FILE(M)
+   d. LOAD_INDEX(M)
+2. LOAD_INDEX(X)
+
+LOAD_NODE_MODULES(X, START)
+1. let DIRS=NODE_MODULES_PATHS(START)
+2. for each DIR in DIRS:
+   a. LOAD_AS_FILE(DIR/X)
+   b. LOAD_AS_DIRECTORY(DIR/X)
+
+NODE_MODULES_PATHS(START)
+1. let PARTS = path split(START)
+2. let I = count of PARTS - 1
+3. let DIRS = []
+4. while I >= 0,
+   a. if PARTS[I] = "node_modules" CONTINUE
+   b. DIR = path join(PARTS[0 .. I] + "node_modules")
+   c. DIRS = DIRS + DIR
+   d. let I = I - 1
+5. return DIRS
+```
+
+参考文档：
+
+http://www.ruanyifeng.com/blog/2015/05/require.html
+
+https://nodejs.org/api/modules.html#modules_require
 
 ## 跨域
 
@@ -373,7 +443,8 @@ target和currentTarget的区别：currentTarget用于和this相等，是指绑�
 
 ​	因为js是单进程的，所以也就有了事件循环这一机制。在主进程上执行的一般被称为执行栈，用于执行异步任务的一般称为任务队列。任务队列中，一般又分为   marcotask（宏任务）和mircotask（微任务），一般全局的执行栈可以理解为第一个宏任务，js脚本首先会执行宏任务，在执行宏任务的过程中，会有异步任务（回调函数），这些异步任务会生成一个任务队列。在这些异步任务中同样有宏任务和微任务之分，其中的微任务会在当前宏任务执行完之后执行，也就说在在新的宏任务执行前执行，其中的宏任务会成为“新”的一个执行栈（主进程的执行栈清空之后，会读取任务队列），这样就形成了一个循环，也就是事件循环。
 
- 	 上述的宏任务一般包括：setTimeout，setInterval，I/O任务，setImmediate，ui渲染。微任务一般包括process.nextTick，Promise。其中对于多个setTimeout，setInterval，会被合并到同一个宏任务中，process.nextTick在Promise之前执行，其中promise的then才属于微任务，new promise是同步的，直接执行。
+ 	上述的宏任务一般包括：setTimeout，setInterval，I/O任务，setImmediate，ui渲染。微任务一般包括process.nextTick，Promise。其中对于多个setTimeout，setInterval，会被合并到同一个宏任务中，process.nextTick在Promise之前执行，其中promise的then才属于微任务，new promise是同步的，直接执行。
+
 参考资料：
 https://juejin.im/entry/58d3f7a944d9040068600c49
 http://www.ruanyifeng.com/blog/2014/10/event-loop.html
