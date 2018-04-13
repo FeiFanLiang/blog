@@ -464,6 +464,10 @@ NaN === NaN          // false
 
 ### 原生js相关dom操作
 
+### session,cookie,sessionStorage,localStorage的区别及应用场景
+
+参考资料：https://www.cnblogs.com/cencenyue/p/7604651.html
+
 ### 事件流
 
 事件流描述的是从页面中接收事件的顺序，事件流分为三个阶段：事件捕获阶段、处于目标阶段、事件冒泡阶段。在捕获阶段，事件从文档的根节点向触发事件的dom节点传递，传递到事件触发节点后，开始冒泡阶段，从当前节点向文档的更节点传递。
