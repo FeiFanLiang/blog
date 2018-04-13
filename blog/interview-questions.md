@@ -96,6 +96,10 @@
 1. 创建对象XMLHttpRequest/ActiveObject对象
 2. open send onreadystatechange readystate（0对象被创建、1调用open方法、2调用send方法、3loading状态、4下载完成 ）status 兼容性 xdomainrequest
 
+### 浏览器输入url之后，整个流程及其中可以进行优化的措施
+
+## 前端工程化的理解
+
 ## 抽象语法树
 
 1. 解析：词法解析和语法解析
@@ -719,6 +723,8 @@ const debounce = (fn, delay) => {
 思路：遍历整个字符串，用一个数组缓存左括号，当匹配到右括号时，与缓存数组的最后一个括号进行匹配，如果不匹配，则直接返回括号匹配失败，如果匹配成功，那么删除当前匹配的括号，继续遍历。
 
 ### 树遍历DFS BFS
+
+### 寻找10万以内的质数
 
 ### 二分法
 
