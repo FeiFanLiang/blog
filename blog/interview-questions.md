@@ -328,7 +328,7 @@ https://nodejs.org/api/modules.html#modules_require
    + `line-height`用于居中行内元素
    + flex布局，使用`align-items: center;`属性
    + 绝对定位，top的 `tranlateY` 和 `height/2` 来进行定位
-   + 设置`table-cell`,然后使用 `vertical-algin:middle`
+   + 设置`table-cell`,然后使用 `vertical-algin:middle`「=」
  - 左右居中
     + `margin: auto 0`来居中宽度固定的元素
     + 绝对定位，top的 `tranlateX` 和 `weight/2` 来进行定位
