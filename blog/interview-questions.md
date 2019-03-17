@@ -47,6 +47,20 @@
 
 参考文档：《图解http》
 
+### http响应头和请求头参数
+
+通用字段
+
+> `cache-control`  `connection` `via` `date`
+
+请求头字段
+
+> `accept` `accept-language` `accept-encoding` `accept-charset` `origin` `host` `referer` `user-agent` `max-forwards` `if-match` `if-last-modified`
+
+响应头字段
+
+> `age` `server` `location` `allow` `content-type` `content-language` `content-encoding` `content-range ` `expired` `last-modified`
+
 ### http2.0 
 
 1. HTTP/2 采用**二进制格式传输数据**，而非 HTTP/1.x 的文本格式。二进制格式在协议的解析和优化扩展上带来更多的优势和可能。
@@ -81,6 +95,10 @@
 
 1. 创建对象XMLHttpRequest/ActiveObject对象
 2. open send onreadystatechange readystate（0对象被创建、1调用open方法、2调用send方法、3loading状态、4下载完成 ）status 兼容性 xdomainrequest
+
+### 浏览器输入url之后，整个流程及其中可以进行优化的措施
+
+## 前端工程化的理解
 
 ## 抽象语法树
 
@@ -264,7 +282,7 @@ https://nodejs.org/api/modules.html#modules_require
 
     - Content-Type：只限于三个值`application/x-www-form-urlencoded`、`multipart/form-data`、`text/plain` 
 
-    **非简单请求**
+    **非简单请求** 
 
     会先发送一个预请求（options），服务请验证之后，再发送实际请求
 
@@ -335,6 +353,8 @@ https://nodejs.org/api/modules.html#modules_require
     + 行内元素通过`text-align:center`居中
     + flex布局，使用`justify-content:center`属性进行水平居中
 
+### flex布局
+
 ### BFC
 
 BFC：块级格式化上下文，它是指一个独立的块级渲染区域，只有Block-level BOX参与，该区域拥有一套渲染规则来约束块级盒子的布局，且与区域外部无关
@@ -400,9 +420,13 @@ div {
 ```
 ## javascript
 
+### 基本类型
+
+`null` `undefined` `boolean` `string` `number` `object` `symbol`
+
 ### 类型判断
 
-typeof   Object.prototype.toString.call() instanceof 
+`typeof `  `Object.prototype.toString.call()`  `instanceof `
 
 ```javascript
 // 隐性转化时，对象会先调用valueOf 和 toString 方法
@@ -419,6 +443,11 @@ NaN === NaN          // false
 
 ### es6
 
+- #### proxy
+
+- #### reflect
+
+
 - #### 装饰器原理
 
   用于增强类和类方法功能，但是不能用于方法，因为方法存在变量提升。原理是利用了es5的defineproperty属性。
@@ -432,6 +461,12 @@ NaN === NaN          // false
   一个promise对象一般有三种状态`pending` `fulfilled(reslove)` `rejected`，三种状态只能从pending向其他两种方式转化，并且不可逆。
 
   参考文档：https://tech.meituan.com/promise-insight.html
+
+### 原生js相关dom操作
+
+### session,cookie,sessionStorage,localStorage的区别及应用场景
+
+参考资料：https://www.cnblogs.com/cencenyue/p/7604651.html
 
 ### 事件流
 
@@ -601,7 +636,83 @@ function inheritPrototype (A, B) {
 
 ### 常用设计模式（单例，观察者）
 
+```javascript
+class Singleton {
+    constructor (name) {
+        this.name = name
+    }
+
+    getSingleton (name) {
+        let instance = null 
+        return  () => instance ? instance : new Singleton(name)
+    }
+}
+```
+
+
+
+```javascript
+// 观察者模式
+class Watch {
+    constructor () {
+        this.eventList = {}
+    }
+    publish (type, ...arg) {
+        if(this.eventList[type].length === 0) return
+        for (const fn of this.eventList[type]) {
+            fn.apply(this, arg)
+        }
+    }
+    subscribe (type, fn) {
+        if (!(type in this.eventList)) {
+            this.eventList[type] = []
+        }
+        this.eventList[type].push(fn)
+    }
+    unsubscribe (type, fn) {
+        let fns = this.eventList[type]
+        if(fns.length === 0) return false
+        if (!fn) {
+            this.eventList[type] = []
+        } else {
+            this.eventList[type].splice(this.eventList[type].indexOf(fn), 1)
+        }
+    }
+} 
+```
+
+
+
 ### 节流和防抖函数
+
+```javascript
+const throttle = (fn, delay) => {
+    let invokTime = 0
+    return (...arg) => {
+        if (+new Date() - invokTime < delay) return
+        setTimeout(() => {
+            invokTime = +new Date()
+            fn.apply(this, arg)
+        }, delay)
+    }
+}
+```
+
+
+
+```javascript
+const debounce = (fn, delay) => {
+    let timer = null
+    return (...arg) => {
+        clearTimeout(timer)
+        timer = setTimeout(() => {
+            fn.apply(this, arg)
+        }, delay)
+    }
+}
+```
+
+
 
 ## 基本算法
 
@@ -615,7 +726,9 @@ function inheritPrototype (A, B) {
 
 思路：遍历整个字符串，用一个数组缓存左括号，当匹配到右括号时，与缓存数组的最后一个括号进行匹配，如果不匹配，则直接返回括号匹配失败，如果匹配成功，那么删除当前匹配的括号，继续遍历。
 
-### 数遍历DFS BFS
+### 树遍历DFS BFS
+
+### 寻找10万以内的质数
 
 ### 二分法
 
@@ -667,6 +780,10 @@ function binarySearch (arr, target, startIndex, endIndex) {
 
 参考文档：https://github.com/banama/aboutVue/blob/master/vue-observe.md
 
+### 数组的变化监听
+
+如果`data`中的属性有数组时，遍历该数组，对数据中的项目做监听处理，即`new Observe()`；另外一方面对数组的一部分方法（`pop/shift/unshift/push/sort/reserve/splice`）用`defineProperty`的方法做劫持处理，如果数组调用了上述的方法，那么就会订阅器的notify方法。
+
 ### 生命周期
 
 `beforeCreate`  事件的初始化，生命周期的开始
@@ -697,6 +814,14 @@ function binarySearch (arr, target, startIndex, endIndex) {
 
 通过使用修改`history.pushState`和修改`history.replaceState`来实现`this.$router.push`和`this.$router.replace`的。
 
+### vuex
+
+#### 设计理念
+
+#### 设计原理
+
+#### 数据流向
+
 ## web安全防范
 
 ### xss（跨站脚本攻击）
@@ -719,14 +844,28 @@ csrf全称是跨站请求伪造，是攻击者盗用用户的身份，已用户�
 
 ## 项目中遇到的问题
 
-多人协作git提交
+调试`node_modules`中的组件，修改`index`的`main`字段或者直接引用源文件
 
-大数据量大树组件的性能问题
+大数据量大树组件的性能问题，第一个步是改成异步加载，每次加载一层节点的数据，展开时再加载下一层数据；第二部，只允许打开一层或者收齐节点时将数据移除。
 
-vuex的参数问题
+`watch`一个`store`的一个属性，使用参数将值复制给data的某个属性，然后在对data做修改
 
 ## 最满意的项目
 
-图片存储
-日历复制黏贴
-树表格的穿梭框
+自己独立负责开发的视频监控的后台管理系统，项目框架是自己搭建的。在做项目的时候，自己坑也踩得比较多。像项目中的多语言方案，浏览器兼容性问题（vue-router，babel-pollfiy），mock服务，代码规范等等都是第一次在项目的实践。
+
+## 项目介绍（简历中项目的几个点）
+
+通用组件开发（ip输入框、密码强度输入框、表格树的穿梭狂，树节点高亮、远程下拉自定义内容等）
+
+多语言方案的实现
+
+vue-router的解决办法
+
+vue-cli模板整理
+
+重复图片上传的实现（formidable）
+
+svg颜色自定义及下载（archiver）
+
+seajs-> 模块化
